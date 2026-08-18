@@ -1,0 +1,103 @@
+import type { ExperienceItem } from "@/types";
+
+export const experience: ExperienceItem[] = [
+  {
+    company: "Progineer Technologies",
+    role: "Software Engineering Intern",
+    location: "Ramallah, Palestine",
+    period: "Oct 2025 – Feb 2026",
+    startYear: "2026",
+    summary:
+      "Built a full-stack real-time Email Alert Management System that turned an unmanaged alert inbox into a tracked, assignable workflow.",
+    highlights: [
+      "Automated alert ingestion, parsing and delegation",
+      "Engineered a Flask REST API backed by SQLite",
+      "Built the operator dashboard in React and Vite",
+      "Implemented role-based access control",
+      "Implemented bulk actions across alert sets",
+      "Added WebSocket live synchronisation across connected clients",
+      "Automated IMAP parsing with normalisation and deduplication",
+    ],
+    technologies: [
+      "Python",
+      "Flask",
+      "React",
+      "Vite",
+      "SQLite",
+      "REST API",
+      "WebSockets",
+      "IMAP",
+      "Automation",
+    ],
+  },
+  {
+    company: "Orion VLSI Technologies",
+    role: "Digital Verification Intern",
+    location: "Rawabi, Palestine",
+    period: "Oct 2025 – Jan 2026",
+    startYear: "2026",
+    summary:
+      "Developed modular SystemVerilog/UVM testbenches and drove RTL validation through constrained-random verification and coverage closure.",
+    highlights: [
+      "Built reusable drivers, monitors, scoreboards and sequences",
+      "Applied constrained-random verification",
+      "Wrote assertions for protocol and interface checking",
+      "Collected and analysed functional coverage",
+      "Tracked code coverage toward closure",
+      "Performed RTL validation against specification",
+    ],
+    technologies: [
+      "SystemVerilog",
+      "UVM",
+      "RTL",
+      "Assertions",
+      "Functional Coverage",
+      "Code Coverage",
+      "Verification",
+    ],
+  },
+  {
+    company: "Self-Employed",
+    role: "Freelance Software Developer",
+    location: "Remote",
+    period: "2023 – Present",
+    startYear: "2023",
+    current: true,
+    summary:
+      "Deliver web applications and workflow automation for clients, translating business requirements into working software.",
+    highlights: [
+      "Develop and deploy web applications",
+      "Build workflow automation solutions",
+      "Translate business requirements into software",
+      "Integrate third-party APIs",
+      "Integrate AI services into existing products",
+      "Design and integrate databases",
+      "Automate repetitive operational workflows",
+    ],
+    technologies: [
+      "Software Development",
+      "Automation",
+      "APIs",
+      "AI Integration",
+      "Databases",
+      "Web Applications",
+    ],
+  },
+  {
+    company: "Bilsan Business Solutions",
+    role: "Web Development Intern",
+    location: "Ramallah, Palestine",
+    period: "2023 – 2024",
+    startYear: "2023",
+    summary:
+      "Built responsive interfaces and reusable UI components, with QA and debugging across browsers.",
+    highlights: [
+      "Built responsive interfaces",
+      "Developed reusable UI components",
+      "Worked across HTML, CSS and JavaScript",
+      "Performed QA on delivered interfaces",
+      "Debugged cross-browser layout and behaviour issues",
+    ],
+    technologies: ["HTML", "CSS", "JavaScript", "Responsive Design", "QA"],
+  },
+];
