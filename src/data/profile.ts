@@ -1,3 +1,4 @@
+import { asset, siteUrl } from "@/lib/site";
 import type { LanguageProficiency, NavItem } from "@/types";
 
 /**
@@ -23,12 +24,14 @@ export const profile = {
   linkedin: "https://linkedin.com/in/abdalkarim-dwikat",
   linkedinHandle: "linkedin.com/in/abdalkarim-dwikat",
 
-  website: "https://abdalkarimdwikat.com",
+  /** Public origin of the deployment — see `src/lib/site.ts`. */
+  website: siteUrl,
 
   status: "Open to opportunities",
 
-  /** Drop a replacement PDF at `public/resume.pdf` to update the résumé. */
-  resumeUrl: "/resume.pdf",
+  /** Drop a replacement PDF at `public/resume.pdf` to update the résumé.
+   *  Base-path prefixed: it is opened by plain anchors, not `next/link`. */
+  resumeUrl: asset("/resume.pdf"),
 
   /** Domains shown under the primary title. */
   domains: ["Computer Engineering", "AI", "Software", "Embedded Systems"],

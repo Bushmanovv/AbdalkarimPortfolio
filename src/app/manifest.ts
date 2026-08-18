@@ -1,6 +1,13 @@
 import type { MetadataRoute } from "next";
 
 import { profile } from "@/data/profile";
+import { asset } from "@/lib/site";
+
+/**
+ * Emitted as a static file: a static export has no server to run this on
+ * per request, so Next requires the intent to be declared.
+ */
+export const dynamic = "force-static";
 
 /**
  * Web app manifest.
@@ -15,7 +22,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: `${profile.name} — ${profile.primaryTitle}`,
     short_name: profile.name.split(" ")[0],
     description: profile.positioning,
-    start_url: "/",
+    start_url: asset("/"),
     display: "standalone",
     // Both match `--color-bg` / the layout's `themeColor`.
     background_color: "#080b0f",
@@ -23,7 +30,7 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["portfolio", "engineering", "technology"],
     icons: [
       {
-        src: "/icon.svg",
+        src: asset("/icon.svg"),
         sizes: "any",
         type: "image/svg+xml",
         purpose: "any",

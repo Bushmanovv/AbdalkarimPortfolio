@@ -2,6 +2,12 @@ import { ImageResponse } from "next/og";
 
 import { profile, promptUser } from "@/data/profile";
 
+/**
+ * Rendered once at build time: a static export has no server to generate
+ * this per request.
+ */
+export const dynamic = "force-static";
+
 export const alt = `${profile.name} — ${profile.primaryTitle}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

@@ -13,6 +13,7 @@ import {
   profile,
 } from "@/data/profile";
 import { accentText, cn } from "@/lib/utils";
+import { asset } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -90,7 +91,7 @@ export default function AboutPage() {
           <Prompt command="display karim.png" size="sm" className="mb-4" />
           <div className="relative mx-auto aspect-[2/3] w-full max-w-[240px] md:mx-0">
             <Image
-              src="/karim-terminal.png"
+              src={asset("/karim-terminal.webp")}
               alt="Portrait of Abdalkarim Dwikat rendered as phosphor-green terminal art"
               fill
               sizes="240px"

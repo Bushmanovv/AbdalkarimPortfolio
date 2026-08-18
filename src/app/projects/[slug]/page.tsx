@@ -13,6 +13,7 @@ import { TechTagList } from "@/components/ui/TechTag";
 import { profile } from "@/data/profile";
 import { getProject, publishedProjects } from "@/data/projects";
 import { domainAccent, pad } from "@/lib/utils";
+import { asset } from "@/lib/site";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -237,7 +238,7 @@ export default async function ProjectPage({ params }: PageProps) {
       {project.heroImage ? (
         <div className="panel relative mt-9 aspect-[16/9] overflow-hidden">
           <Image
-            src={project.heroImage}
+            src={asset(project.heroImage)}
             alt={`${project.title} — project hero`}
             fill
             sizes="(min-width: 1024px) 900px, 100vw"

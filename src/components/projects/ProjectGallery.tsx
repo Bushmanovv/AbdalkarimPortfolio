@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import type { GalleryItem } from "@/types";
+import { asset } from "@/lib/site";
 
 interface ProjectGalleryProps {
   items: GalleryItem[];
@@ -22,7 +23,7 @@ export function ProjectGallery({ items }: ProjectGalleryProps) {
         <li key={item.src} className="panel overflow-hidden">
           <div className="relative aspect-[16/10] bg-bg-secondary">
             <Image
-              src={item.src}
+              src={asset(item.src)}
               alt={item.alt}
               fill
               sizes="(min-width: 640px) 50vw, 100vw"

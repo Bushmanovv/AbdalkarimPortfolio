@@ -3,6 +3,7 @@ import { Geist, JetBrains_Mono } from "next/font/google";
 
 import { AppShell } from "@/components/layout/AppShell";
 import { profile } from "@/data/profile";
+import { asset } from "@/lib/site";
 
 import "./globals.css";
 
@@ -78,8 +79,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/icon.svg" }],
+    icon: [{ url: asset("/icon.svg"), type: "image/svg+xml" }],
+    apple: [{ url: asset("/icon.svg") }],
   },
 };
 

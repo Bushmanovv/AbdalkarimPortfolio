@@ -69,7 +69,7 @@ exactly one place, in that project's `metrics` array.
 
 Case studies currently carry their visual weight through architecture diagrams
 and metric panels — no *project* imagery exists yet. (The About page does have
-the terminal portrait, `public/karim-terminal.png`.) Adding media requires no
+the terminal portrait, `public/karim-terminal.webp`.) Adding media requires no
 code changes:
 
 ```ts
@@ -97,7 +97,7 @@ TopCar UIs, and the computer-vision demos.
 | Original | Shipped as | Notes |
 |----------|-----------|-------|
 | `assets/Abdalkarim_Dwikat_Resume.pdf` | `public/resume.pdf` | Copy over the same path to update the résumé |
-| `assets/KarimTerminal.png` (1024×1536) | `public/karim-terminal.png` (800×1200) | Downscaled for retina; alpha preserved so the glow blends into the page |
+| `assets/KarimTerminal.png` (1024×1536) | `public/karim-terminal.webp` (480×720, 75 KB) | Sized for the 240px slot at 2× and encoded as WebP. A static export has no image optimiser, so the file ships exactly as authored — the full-resolution PNG would have been 1.3 MB on every visit |
 
 ---
 
@@ -251,6 +251,56 @@ Navigation controls call `detach()` before running their command, because a
 sidebar click means "open that page" and `cd ~` against a prosthetic hand can
 only ever answer *command not found*. Streamed output is cancelled by the same
 generation counter the typing animation uses, so any new keystroke stops it.
+
+---
+
+## Deployment
+
+Published to GitHub Pages by `.github/workflows/deploy.yml` on every push to
+`main`, as a static export — Pages serves files, not a Node server.
+
+**One-time setup:** Settings → Pages → Build and deployment → Source →
+**GitHub Actions**. (The workflow's `configure-pages` step sets this itself on
+its first successful run; changing it by hand only matters if Pages was already
+pointed at a branch, which serves `README.md` as the site.)
+
+### How the sub-path works
+
+A project repository is served from `/AbdalkarimPortfolio`, so that prefix has
+to be compiled in. `src/lib/site.ts` reads it from the environment and the
+workflow supplies it from the Pages configuration:
+
+| Variable | Set by CI to | Unset means |
+|----------|--------------|-------------|
+| `NEXT_PUBLIC_BASE_PATH` | `/AbdalkarimPortfolio` | site lives at the root |
+| `NEXT_PUBLIC_SITE_URL` | `https://bushmanovv.github.io/AbdalkarimPortfolio` | falls back to `profile.website` |
+
+`next/link` and `next/image` normally apply `basePath` themselves — but
+**`images.unoptimized` bypasses the optimiser, and with it the prefixing**, so
+image `src` values go through `asset()` explicitly. Same for anything Next never
+touches: the resume anchor, metadata icons and the manifest.
+
+### Moving to a custom domain
+
+Add the domain in Settings → Pages, drop `NEXT_PUBLIC_BASE_PATH` from the
+workflow, and point `NEXT_PUBLIC_SITE_URL` at the new origin. No source change:
+an unset base path is an empty string everywhere it is used.
+
+### Export constraints
+
+`output: "export"` forbids cookies, rewrites, redirects, custom headers and
+request-dependent route handlers — none of which this app uses. Two things it
+does require:
+
+- `trailingSlash: true`, so routes emit `about/index.html` rather than
+  `about.html`. Pages resolves directory URLs predictably; extensionless files
+  are far less reliable.
+- `export const dynamic = "force-static"` on `robots.ts`, `sitemap.ts`,
+  `manifest.ts` and `opengraph-image.tsx`. Without it the build fails outright,
+  because Next will not guess whether a route handler is safe to freeze.
+
+`public/.nojekyll` stops Pages' Jekyll pass from discarding `_next/`, whose
+leading underscore it would otherwise treat as private.
 
 ---
 
