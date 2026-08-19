@@ -3,7 +3,7 @@ import { Geist, JetBrains_Mono } from "next/font/google";
 
 import { AppShell } from "@/components/layout/AppShell";
 import { profile } from "@/data/profile";
-import { asset } from "@/lib/site";
+import { asset, basePath } from "@/lib/site";
 
 import "./globals.css";
 
@@ -150,6 +150,13 @@ export default function RootLayout({
             cover (see `html.booting::before` in globals.css) that the overlay
             then draws on top of.
 
+            The base path has to be stripped before comparing. `usePathname()`
+            removes it for React, but this script sees the raw URL — and under
+            a sub-path deployment the home page is `/<base>/`, not `/`, so a
+            bare `=== "/"` test silently never matches. The symptom is the one
+            this script exists to prevent: the page renders, then the boot
+            sequence drops over it once hydration lands.
+
             Gated on the home path because BootOverlay only renders there —
             without that check, landing directly on a shared /projects link
             would sit behind a black screen until the failsafe fired. The
@@ -159,7 +166,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `(function(){try{
 var d=document.documentElement;
-if(location.pathname==='/'&&!sessionStorage.getItem('portfolio:booted')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+var b=${JSON.stringify(basePath)};
+var p=location.pathname;
+if(b&&p.indexOf(b)===0)p=p.slice(b.length);
+if((p===''||p==='/')&&!sessionStorage.getItem('portfolio:booted')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
 d.classList.add('booting');
 setTimeout(function(){d.classList.remove('booting')},6000);
 }}catch(e){}})();`,
